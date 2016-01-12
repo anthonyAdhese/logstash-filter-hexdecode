@@ -35,12 +35,17 @@ class LogStash::Filters::Hexdecode < LogStash::Filters::Base
     original_value = event[@field]
     
     if original_value.is_a?(String)
-      arr = Array(original_value)
-      decoded = arr.pack('H*')
+	  if (original_value.length == 0)
+		event[(@target||@field)] = original_value
+		filter_matched(event)
+	  else
+		arr = Array(original_value)
+		decoded = arr.pack('H*')
+	  end
     else
       raise LogStash::ConfigurationError, "Only String can be hexdecoded. field:#{@field} is of type = #{original_value.class}"
     end
-    event[@target] = decoded
+    event[(@target||@field)] = decoded
 
     # filter_matched should go in the last line of our successful code
     filter_matched(event)
