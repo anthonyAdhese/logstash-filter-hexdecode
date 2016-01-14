@@ -42,6 +42,7 @@ describe LogStash::Filters::Hexdecode do
       filter {
         hexdecode {
           field => "url"
+		  target => "url"
         }
       }
     CONFIG
@@ -58,6 +59,7 @@ describe LogStash::Filters::Hexdecode do
       filter {
         hexdecode {
           field => "url"
+		  target => "url"
         }
       }
     CONFIG
