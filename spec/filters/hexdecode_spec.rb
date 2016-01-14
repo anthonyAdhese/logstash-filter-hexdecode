@@ -47,7 +47,7 @@ describe LogStash::Filters::Hexdecode do
     CONFIG
     end
 
-    sample("url" => "687474703A2F2F7777772E64686E65") do
+    sample("url" => "687474703A2F2F7777772E64686E65742E62652F") do
       expect(subject).to include("url")
       expect(subject['url']).to eq('http://www.dhnet.be')
     end
@@ -63,7 +63,7 @@ describe LogStash::Filters::Hexdecode do
     CONFIG
     end
 
-    sample("url" => "687474703A2F2F7777772E64686E65") do
+    sample("url" => "687474703A2F2F7777772E64686E65742E62652F") do
       expect(subject).to include("url_decoded")
       expect(subject['url_decoded']).to eq('http://www.dhnet.be')
     end
