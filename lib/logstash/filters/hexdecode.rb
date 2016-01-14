@@ -39,7 +39,7 @@ class LogStash::Filters::Hexdecode < LogStash::Filters::Base
 		    event[(@target||@field)] = original_value
 	    else
 		    arr = Array(original_value)
-        event[(@target||@field)] = arr.pack('H*').force_encoding('utf-8')
+        event[(@target||@field)] = arr.pack('H*').gsub('00','').force_encoding('utf-8')
 	    end
     else
       raise LogStash::ConfigurationError, "Only String can be hexdecoded. field:#{@field} is of type = #{original_value.class}"

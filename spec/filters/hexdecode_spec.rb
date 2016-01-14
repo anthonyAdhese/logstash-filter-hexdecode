@@ -16,7 +16,7 @@ describe LogStash::Filters::Hexdecode do
 
     sample("url" => "0068007400740070003a002f002f007700770077002e00640068006e00650074002e00620065002f") do
       expect(subject).to include("url_decoded")
-      expect(subject['url_decoded']).to eq('http://www.dhnet.be')
+      expect(subject['url_decoded']).to eq('http://www.dhnet.be/')
     end
   end
   
@@ -33,7 +33,7 @@ describe LogStash::Filters::Hexdecode do
 
     sample("url" => "0068007400740070003a002f002f007700770077002e00640068006e00650074002e00620065002f") do
       expect(subject).to include("url")
-      expect(subject['url']).to eq('http://www.dhnet.be')
+      expect(subject['url']).to eq('http://www.dhnet.be/')
     end
   end
   
@@ -49,7 +49,7 @@ describe LogStash::Filters::Hexdecode do
 
     sample("url" => "687474703A2F2F7777772E64686E65742E62652F") do
       expect(subject).to include("url")
-      expect(subject['url']).to eq('http://www.dhnet.be')
+      expect(subject['url']).to eq('http://www.dhnet.be/')
     end
   end
   
@@ -65,7 +65,7 @@ describe LogStash::Filters::Hexdecode do
 
     sample("url" => "687474703A2F2F7777772E64686E65742E62652F") do
       expect(subject).to include("url_decoded")
-      expect(subject['url_decoded']).to eq('http://www.dhnet.be')
+      expect(subject['url_decoded']).to eq('http://www.dhnet.be/')
     end
   end
   
