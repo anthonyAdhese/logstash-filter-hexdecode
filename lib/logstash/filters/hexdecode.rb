@@ -35,7 +35,7 @@ class LogStash::Filters::Hexdecode < LogStash::Filters::Base
     original_value = event[@field]
     
     if original_value.is_a?(String)
-	    if (original_value.length == 0)
+	    if (original_value.nil || original_value.length == 0)
 		    event[@target] = original_value
 	    else
 		    arr = Array(original_value.gsub('00',''))
