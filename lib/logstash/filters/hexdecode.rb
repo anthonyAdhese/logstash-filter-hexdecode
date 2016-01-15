@@ -2,25 +2,15 @@
 require "logstash/filters/base"
 require "logstash/namespace"
 
-# This example filter will replace the contents of the default 
-# message field with whatever you specify in the configuration.
-#
-# It is only intended to be used as an example.
+# The hexdecode filter is for decoding hexencoded string into readable strings.
 class LogStash::Filters::Hexdecode < LogStash::Filters::Base
 
-  # Setting the config_name here is required. This is how you
-  # configure this filter from your Logstash config.
-  #
-  # filter {
-  #   example {
-  #     message => "My message..."
-  #   }
-  # }
-  #
   config_name "hexdecode"
   
+  # The name of the field containing the hexencoded string
   config :field, :validate => :string, :default => "message"
   
+  #The name of the field in which the decoded string will end up in.
   config :target, :validate => :string
   
 
@@ -33,6 +23,7 @@ class LogStash::Filters::Hexdecode < LogStash::Filters::Base
   def filter(event)
 
     original_value = event[@field]
+    return if original_value.nil?
     
     if original_value.is_a?(String)
 	    if (original_value.length == 0)
@@ -41,8 +32,6 @@ class LogStash::Filters::Hexdecode < LogStash::Filters::Base
 		    arr = Array(original_value.gsub('00',''))
         event[@target] = arr.pack('H*').force_encoding('utf-8')
 	    end
-	else if original_value.is_a?(NilClass)
-		event[@target] = ""
     else
       raise LogStash::ConfigurationError, "Only String can be hexdecoded. field:#{@field} is of type = #{original_value.class}"
     end
@@ -50,4 +39,4 @@ class LogStash::Filters::Hexdecode < LogStash::Filters::Base
     # filter_matched should go in the last line of our successful code
     filter_matched(event)
   end # def filter
-end # class LogStash::Filters::Example
+end # class LogStash::Filters::Hexdecode
